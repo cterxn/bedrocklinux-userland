@@ -1,0 +1,35 @@
+name: Build Bedrock
+on: [push, pull_request]
+
+env:
+  REPO_URL: https://github.com/cterxn/bedrock-userland
+  REPO_BRANCH: master
+  UPLOAD_RELEASE: true
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /bedrock-userland
+        sudo chown $USER:$GROUPS 
+        
+    - name: Clone source code
+      working-directory: /bedrock-userland
+      run: |
+        df -hT $PWD
+        git clone $REPO_URL -b $REPO_BRANCH bedrock-userland
+        ln -sf /bedrock-userland/bedrock-userland $GITHUB_WORKSPACE/bedrock-userland
+
+    - name: Make
+      working-directory: /bedrock-userland
+      run: |
+        make -j3  GPGID=83c1923eb62f21bee688c71d8d15189961bac593
