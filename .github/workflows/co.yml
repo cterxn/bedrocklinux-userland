@@ -4,8 +4,7 @@ on: [push, pull_request]
 env:
   REPO_URL: https://github.com/cterxn/bedrocklinux-userland.git
   REPO_BRANCH: master
-  UPLOAD_RELEASE: true
-  TZ: Asia/Shanghai
+  UPLOAD_RELEASE: true                                                                   TZ: Asia/Shanghai
 
 jobs:
   build:
@@ -29,8 +28,18 @@ jobs:
       working-directory: bedrock/bedrock
       run: |
         make -j3  GPGID=83c1923eb62f21bee688c71d8d15189961bac593 -i
-    - name: Upload artifact # 上传构建产物，这里我们的源码目录是 src，而实际运行的代码是构建后的 bin 目录
-        uses: actions/upload-artifact@v2
-        with:
-          name: build_output
-          path: bin # 上传 bin 目录
+    - name: Zip the Build
+      run: zip -r ${{ secrets.ReleaseZipName }} ./
+
+    - name: Create Release and Upload Release Asset
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        tag_name: ${{ github.ref }}
+        name: Release ${{ github.ref }}
+        body: TODO New Release.
+        draft: false
+        prerelease: false
+        files: |
+          ${{ secrets.ReleaseZipName }}.zip
+          LICENSE
