@@ -28,4 +28,4 @@ jobs:
     - name: Make
       working-directory: bedrock/bedrock
       run: |
-        make -j3  GPGID=83c1923eb62f21bee688c71d8d15189961bac593
+        make -j3  GPGID=83c1923eb62f21bee688c71d8d15189961bac593 -i
