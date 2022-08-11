@@ -18,8 +18,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /bedrock
-        sudo chown $USER:$GROUPS 
+        sudo mkdir -p /bedrock 
     - name: Clone source code
       working-directory: /bedrock
       run: |
