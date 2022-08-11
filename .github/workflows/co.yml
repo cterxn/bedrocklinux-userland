@@ -24,8 +24,8 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH bedrock
-        ln -sf  bedrock/bedrock $GITHUB_WORKSPACE/bedrock
+        #ln -sf  bedrock/bedrock $GITHUB_WORKSPACE/bedrock
     - name: Make
-      working-directory: ~bedrock
+      working-directory: bedrock/bedrock
       run: |
         make -j3  GPGID=83c1923eb62f21bee688c71d8d15189961bac593
