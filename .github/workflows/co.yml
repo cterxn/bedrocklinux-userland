@@ -29,3 +29,8 @@ jobs:
       working-directory: bedrock/bedrock
       run: |
         make -j3  GPGID=83c1923eb62f21bee688c71d8d15189961bac593 -i
+    - name: Upload artifact # 上传构建产物，这里我们的源码目录是 src，而实际运行的代码是构建后的 bin 目录
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_output
+          path: bin # 上传 bin 目录
