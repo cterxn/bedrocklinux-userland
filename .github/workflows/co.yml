@@ -18,14 +18,14 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo timedatectl set-timezone "$TZ"
-        mkdir -p ~//bedrock
+        mkdir -p bedrock
     - name: Clone source code
-      working-directory: ~/bedrock
+      working-directory: bedrock
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH bedrock
-        ln -sf ~/bedrock/bedrock $GITHUB_WORKSPACE/bedrock
+        ln -sf  bedrock/bedrock $GITHUB_WORKSPACE/bedrock
     - name: Make
-      working-directory: ~/bedrock
+      working-directory: ~bedrock
       run: |
         make -j3  GPGID=83c1923eb62f21bee688c71d8d15189961bac593
