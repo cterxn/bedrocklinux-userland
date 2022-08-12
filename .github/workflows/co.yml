@@ -34,6 +34,7 @@ jobs:
   releasse:
       runs-on:ubuntu-latest
         steps:
+      - name: upload
       - uses: actions/checkout@v2.3.4
       - uses: GuillaumeFalourd/command-output-file-action@v1
         with:
