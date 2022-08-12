@@ -3,7 +3,9 @@ on: [push, pull_request]
 
 env:
   REPO_URL: https://github.com/cterxn/bedrocklinux-userland.git
-  REPO_BRANCH: master                                                    TZ: Asia/Shanghai
+  REPO_BRANCH: master   
+  TZ: Asia/Shanghai
+                                             
 
 jobs:
   build:
