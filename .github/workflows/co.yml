@@ -28,18 +28,14 @@ jobs:
       working-directory: bedrock/bedrock
       run: |
         make -j3  GPGID=83c1923eb62f21bee688c71d8d15189961bac593 -i
-    - name: Zip the Build
-      run: zip -r ${{ secrets.ReleaseZipName }} ./
 
-    - name: Create Release and Upload Release Asset
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        tag_name: ${{ github.ref }}
-        name: Release ${{ github.ref }}
-        body: TODO New Release.
-        draft: false
-        prerelease: false
-        files: |
-          ${{ secrets.ReleaseZipName }}.zip
-          LICENSE
+jobs:
+  releasse:
+      runs-on:ubuntu-latest
+        steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: GuillaumeFalourd/command-output-file-action@v1
+        with:
+          command_line: ls -lha
+          output_file_name: output.sh
+          display_file_content: YES # this is also the default value if not informed
